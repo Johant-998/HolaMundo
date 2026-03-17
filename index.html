@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Una página de Hola Mundo con diseño moderno y elegante." />
+  <title>Hola Mundo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #0a0a12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 60px 16px 80px;
+      overflow-x: hidden;
+      gap: 40px;
+    }
+
+    /* Animated background orbs */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.35;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, #6c47ff, #3b1fa3);
+      top: -150px;
+      left: -150px;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #ff47a3, #a31f6c);
+      bottom: -120px;
+      right: -120px;
+      animation-delay: -3s;
+    }
+
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #47c5ff, #1f7aa3);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -6s;
+    }
+
+    @keyframes float {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    /* Glass card */
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 28px;
+      padding: 64px 72px;
+      text-align: center;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 32px 80px rgba(0, 0, 0, 0.5);
+      animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #a78bfa;
+      background: rgba(167, 139, 250, 0.12);
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      padding: 6px 16px;
+      border-radius: 99px;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #ffffff 30%, #a78bfa 70%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+      animation: shimmer 4s linear infinite;
+      background-size: 200% auto;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.02em;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: linear-gradient(135deg, #6c47ff, #f472b6);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 99px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 32px rgba(108, 71, 255, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 16px 48px rgba(108, 71, 255, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* Sparkles */
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0;
+      animation: twinkle var(--dur, 3s) var(--delay, 0s) ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50%       { opacity: 0.8; transform: scale(1.5); }
+    }
+
+    /* ── Contact Form ── */
+    .contact-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 28px;
+      padding: 48px 48px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 32px 80px rgba(0, 0, 0, 0.5);
+      animation: fadeUp 0.9s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .contact-card h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .contact-card .sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.98rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      resize: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255,255,255,0.25);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(167,139,250,0.6);
+      box-shadow: 0 0 0 3px rgba(167,139,250,0.15);
+    }
+
+    .form-group input.error,
+    .form-group textarea.error {
+      border-color: rgba(248, 113, 113, 0.7);
+      box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+    }
+
+    .error-msg {
+      font-size: 0.8rem;
+      color: #f87171;
+      display: none;
+    }
+
+    .form-group.has-error .error-msg {
+      display: block;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #6c47ff, #f472b6);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s;
+      box-shadow: 0 8px 32px rgba(108, 71, 255, 0.4);
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(108, 71, 255, 0.6);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 24px 0 8px;
+      animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .success-msg .check-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6c47ff, #f472b6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 8px 32px rgba(108,71,255,0.45);
+    }
+
+    .success-msg p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+      text-align: center;
+    }
+
+    .success-msg strong {
+      display: block;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ── Responsive: Tablet (≤ 768px) ── */
+    @media (max-width: 768px) {
+      body {
+        padding: 40px 16px 60px;
+        gap: 28px;
+      }
+
+      .card {
+        padding: 48px 40px;
+        border-radius: 22px;
+      }
+
+      .contact-card {
+        padding: 36px 32px;
+        border-radius: 22px;
+      }
+
+      .contact-card h2 {
+        font-size: 1.5rem;
+      }
+
+      /* Reduce orb sizes so they don't over-bleed */
+      .orb-1 { width: 320px; height: 320px; }
+      .orb-2 { width: 260px; height: 260px; }
+      .orb-3 { width: 200px; height: 200px; }
+    }
+
+    /* ── Responsive: Mobile (≤ 480px) ── */
+    @media (max-width: 480px) {
+      body {
+        padding: 28px 12px 48px;
+        gap: 20px;
+      }
+
+      .card {
+        padding: 36px 24px;
+        border-radius: 18px;
+      }
+
+      .contact-card {
+        padding: 28px 20px;
+        border-radius: 18px;
+      }
+
+      .contact-card h2 {
+        font-size: 1.35rem;
+      }
+
+      .contact-card .sub {
+        font-size: 0.88rem;
+        margin-bottom: 24px;
+      }
+
+      .badge {
+        font-size: 0.7rem;
+        padding: 5px 12px;
+      }
+
+      p {
+        font-size: 0.97rem;
+        margin-bottom: 28px;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+        padding: 14px 24px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        font-size: 1rem;  /* prevents iOS zoom on focus */
+        padding: 13px 14px;
+      }
+
+      .btn-submit {
+        font-size: 0.95rem;
+        padding: 14px;
+      }
+
+      /* Hide sparkles on very small screens for performance */
+      .sparkles { display: none; }
+
+      .gallery-section h2 { font-size: 1.5rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+
+    /* ── Gallery Section ── */
+    .gallery-section {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .gallery-section h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .gallery-section .gallery-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.4);
+      margin: 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      cursor: pointer;
+      aspect-ratio: 1 / 1;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03) translateY(-4px);
+      box-shadow: 0 20px 60px rgba(108, 71, 255, 0.45);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,18,0.75) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    .gallery-overlay span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .lightbox.open { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 18px;
+      box-shadow: 0 40px 120px rgba(0,0,0,0.8);
+      animation: zoomIn 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.88); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+    /* Responsive gallery */
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .gallery-section h2 { font-size: 1.6rem; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .gallery-item { border-radius: 12px; }
+      .gallery-section h2 { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background orbs -->
+  <div class="bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Sparkles generated by JS -->
+  <div class="sparkles" id="sparkles"></div>
+
+  <!-- Main card -->
+  <div class="card">
+    <div class="badge">✨ Mi primera página</div>
+    <h1>Hola Mundo</h1>
+    <p>Bienvenido a esta pequeña pero poderosa página web.</p>
+    <a class="btn" id="greet-btn" href="#">¡Saludar!</a>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="contact-card">
+    <h2>Contáctame 📬</h2>
+    <p class="sub">Responderé lo antes posible.</p>
+
+    <form id="contact-form" novalidate>
+      <div class="form-group" id="fg-name">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" placeholder="Tu nombre completo" autocomplete="off" />
+        <span class="error-msg">Por favor ingresa tu nombre.</span>
+      </div>
+
+      <div class="form-group" id="fg-email">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="tu@correo.com" autocomplete="off" />
+        <span class="error-msg">Ingresa un correo válido.</span>
+      </div>
+
+      <div class="form-group" id="fg-subject">
+        <label for="subject">Asunto</label>
+        <input type="text" id="subject" placeholder="¿De qué trata tu mensaje?" autocomplete="off" />
+        <span class="error-msg">Por favor ingresa un asunto.</span>
+      </div>
+
+      <div class="form-group" id="fg-message">
+        <label for="message">Mensaje</label>
+        <textarea id="message" rows="5" placeholder="Escribe tu mensaje aquí…"></textarea>
+        <span class="error-msg">Por favor escribe tu mensaje.</span>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submit-btn">Enviar mensaje ✉️</button>
+    </form>
+
+    <div class="success-msg" id="success-msg">
+      <div class="check-circle">✅</div>
+      <div>
+        <strong>¡Mensaje enviado!</strong>
+        <p>Gracias por escribir. Pronto me pondré en contacto contigo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section">
+    <div class="gallery-header">
+      <h2>Galería ✨</h2>
+      <p class="gallery-sub">Una colección de arte digital generado con IA.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item" data-label="Geometría Neon" data-src="images/gallery_1.png">
+        <img src="images/gallery_1.png" alt="Geometría neon abstracta" loading="lazy" />
+        <div class="gallery-overlay"><span>Geometría Neon</span></div>
+      </div>
+      <div class="gallery-item" data-label="Ciudad Futurista" data-src="images/gallery_2.png">
+        <img src="images/gallery_2.png" alt="Ciudad futurista de noche" loading="lazy" />
+        <div class="gallery-overlay"><span>Ciudad Futurista</span></div>
+      </div>
+      <div class="gallery-item" data-label="Olas Metálicas" data-src="images/gallery_3.png">
+        <img src="images/gallery_3.png" alt="Olas líquidas metálicas" loading="lazy" />
+        <div class="gallery-overlay"><span>Olas Metálicas</span></div>
+      </div>
+      <div class="gallery-item" data-label="Nebulosa Cósmica" data-src="images/gallery_4.png">
+        <img src="images/gallery_4.png" alt="Nebulosa cósmica" loading="lazy" />
+        <div class="gallery-overlay"><span>Nebulosa Cósmica</span></div>
+      </div>
+      <div class="gallery-item" data-label="Bosque Mágico" data-src="images/gallery_5.png">
+        <img src="images/gallery_5.png" alt="Bosque bioluminiscente" loading="lazy" />
+        <div class="gallery-overlay"><span>Bosque Mágico</span></div>
+      </div>
+      <div class="gallery-item" data-label="Cristal Neon" data-src="images/gallery_6.png">
+        <img src="images/gallery_6.png" alt="Cristal neon geométrico" loading="lazy" />
+        <div class="gallery-overlay"><span>Cristal Neon</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+  </div>
+
+  <script>
+    // Generate random sparkles
+    const container = document.getElementById('sparkles');
+    for (let i = 0; i < 60; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.top  = Math.random() * 100 + 'vh';
+      s.style.setProperty('--dur',   (2 + Math.random() * 4) + 's');
+      s.style.setProperty('--delay', (Math.random() * 4) + 's');
+      container.appendChild(s);
+    }
+
+    // Greet button interaction
+    const btn = document.getElementById('greet-btn');
+    const messages = [
+      '¡Hola! 👋', '¡Buenas! 🌟', '¡Hey! 🎉', '¡Qué tal! 🚀', '¡Saludos! 💜'
+    ];
+    let idx = 0;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      btn.textContent = messages[idx % messages.length];
+      idx++;
+      setTimeout(() => { btn.textContent = '¡Saludar!'; }, 1500);
+    });
+
+    // ── Contact form validation ──
+    const form       = document.getElementById('contact-form');
+    const submitBtn  = document.getElementById('submit-btn');
+    const successMsg = document.getElementById('success-msg');
+
+    function validate(id, groupId, test) {
+      const input = document.getElementById(id);
+      const group = document.getElementById(groupId);
+      const ok = test(input.value.trim());
+      input.classList.toggle('error', !ok);
+      group.classList.toggle('has-error', !ok);
+      return ok;
+    }
+
+    function isEmail(v) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v1 = validate('name',    'fg-name',    v => v.length > 0);
+      const v2 = validate('email',   'fg-email',   v => isEmail(v));
+      const v3 = validate('subject', 'fg-subject', v => v.length > 0);
+      const v4 = validate('message', 'fg-message', v => v.length > 0);
+
+      if (!(v1 && v2 && v3 && v4)) return;
+
+      // Simulate sending
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando…';
+      setTimeout(() => {
+        form.style.display = 'none';
+        successMsg.style.display = 'flex';
+      }, 1200);
+    });
+
+    // Live validation on input
+    document.getElementById('name').addEventListener('input',
+      () => validate('name', 'fg-name', v => v.length > 0));
+    document.getElementById('email').addEventListener('input',
+      () => validate('email', 'fg-email', v => isEmail(v)));
+    document.getElementById('subject').addEventListener('input',
+      () => validate('subject', 'fg-subject', v => v.length > 0));
+    document.getElementById('message').addEventListener('input',
+      () => validate('message', 'fg-message', v => v.length > 0));
+
+    // ── Lightbox ──
+    const lightbox     = document.getElementById('lightbox');
+    const lightboxImg  = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        lightboxImg.src = item.dataset.src;
+        lightboxImg.alt = item.dataset.label;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
